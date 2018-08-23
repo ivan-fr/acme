@@ -1,0 +1,43 @@
+{% spaceless %}
+    {% for footer in page_menu_n_b %}
+
+        {# info : open, close, level, repertory, next_level_up, level_target #}
+        {% for menu, info in footer %}
+
+        {% if info.open %}
+            {% if info.level == 0 %}
+            <div class="col-md">
+            {% endif %}
+            <ul><li>
+        {% else %}
+            </li>
+            {% if info.level == 0 %}
+            </ul></div><div class="col-md"><ul>
+            {% endif %}
+            <li>
+        {% endif %}
+
+         <a {% if info.active_repertory %}class="active"{% endif %}
+            href="{% url 'page:menu-detail' info.repertory %}">{{ menu|capfirst }}</a>
+
+        {% if info.close and info.level_target == 0 or info.level_target == -1 %}
+
+            {% for close in info.close %}
+                </li></ul>
+                {% if foorloop.last %}
+                </div>
+                {% endif %}
+            {% endfor %}
+
+        {% else %}
+
+            {% for close in info.close %}
+                </li></ul>
+            {% endfor %}
+
+        {% endif %}
+
+        {% endfor %}
+
+    {% endfor %}
+{% endspaceless %}

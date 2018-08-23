@@ -1,0 +1,35 @@
+{% extends "generale/racine.html" %}
+{% load staticfiles %}
+
+{% block header %}
+<div class="col-12">
+    {% include "page/page_menu_n_t.html" with page_menu_n_t=page_menu_n_t %}
+</div>
+{% endblock %}
+
+{% block content %}
+{% if page_menu_ne_ne %}
+    <div class="col-4">
+        {% include "page/page_menu_ne_ne.html" with page_menu_ne_ne=page_menu_ne_ne %}
+    </div>
+    <div class="col-8">
+{% else %}
+        <div class="col-12">
+{% endif %}
+
+        {% include "page/breadcrumb.html" with breadcrumb=breadcrumb page_menu_reference_slug=page_menu_reference_slug %}
+
+        <span id="__master__">
+            {% block page_menu_layout %}
+            {% endblock %}
+        </span>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {% include "page/page_menu_n_b.html" with page_menu_n_b=page_menu_n_b %}
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'ib/vendor/submenu/bootstrap-submenu.js' %}"></script>
+{% endblock %}

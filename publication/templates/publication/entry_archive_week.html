@@ -1,0 +1,31 @@
+{% extends "publication/entry_layout.html" %}
+
+{% block title %}{{ week|date:"F" }}{% endblock %}
+
+{% block titre_publication %}
+<a  href="{% url 'page:publication:entry-year' page_menu_repertory week|date:"Y" %}">{{ week|date:"Y" }}</a>,
+{{ week|date:"W" }} ème semaine(s)
+{% endblock %}
+
+{% block layout %}
+
+    <ul class="list-group">
+
+        {% for object in object_list %}
+            {% include 'publication/patron.html' with object=object %}
+        {% endfor %}
+
+    </ul>
+
+{% if previous_week %}
+    <a class="badge badge-primary"
+       href="{% url 'page:publication:entry-week' page_menu_repertory previous_week|date:"Y" previous_week|date:"W" %}">
+{{ previous_week|date:"W" }} of year {{ previous_week|date:"Y" }}</a>
+{% endif %}
+{% if next_week %}
+    <a class="badge badge-primary"
+       href="{% url 'page:publication:entry-week' page_menu_repertory next_week|date:"Y" next_week|date:"W" %}">
+{{ next_week|date:"W" }} of year {{ next_week|date:"Y" }}</a>
+{% endif %}
+
+{% endblock %}

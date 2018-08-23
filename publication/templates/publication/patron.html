@@ -1,0 +1,12 @@
+    <li class="list-group-item">
+        <h4>
+            <a href="{{ object.get_absolute_url }}">{{ object.title|safe }}</a>
+        </h4>
+        {{ object.content|safe }}
+        <span class="meta">
+            Publié par <strong>{{ object.user }}</strong> le {{ object.publish }}.
+            {% if  object.updated > object.publish %}
+            <br>Modifier le {{ object.updated }}
+            {% endif %}
+        </span>
+    </li>

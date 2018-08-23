@@ -1,0 +1,19 @@
+{% extends "publication/entry_layout.html" %} {% block layout %}
+<ul class="list-group">
+  {% for object in latest %} {% include 'publication/patron.html' with object=object %} {% endfor %}
+</ul>
+
+<div class="card" style="width: 18rem; margin-top:1em;">
+  <div class="card-header">
+    Archive
+  </div>
+  <ul class="list-group list-group-flush">
+    {% for date in date_list %}
+    <li class="list-group-item">
+      <a href="{% url 'page:publication:entry-year' page_menu_repertory date|date:'Y' %}">{{ date|date:"Y" }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% endblock %}

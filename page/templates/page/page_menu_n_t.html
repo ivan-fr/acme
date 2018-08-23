@@ -1,0 +1,55 @@
+{% spaceless %}
+    {% for navigator in page_menu_n_t %}
+
+        {# info : open, close, level, repertory, next_level_up, level_target #}
+        {% for menu, info in navigator %}
+
+        {% if info.open %}
+            {% if info.level == 0 %}
+            <ul class="nav nav-tabs"><li class="nav-item {% if info.next_level_up %}dropdown{% endif %}">
+            {% else %}
+            <ul class="dropdown-menu"><li class="{% if info.next_level_up %}dropdown{% endif %}">
+            {% endif %}
+        {% else %}
+            {% if info.level == 0 %}
+            </li><li class="nav-item {% if info.next_level_up %}dropdown{% endif %}">
+            {% else %}
+            </li><li class="{% if info.next_level_up %}dropdown{% endif %}">
+            {% endif %}
+        {% endif %}
+            {% url 'page:menu-detail' info.repertory as current_url %}
+
+        	{% if info.next_level_up %}
+                {% if info.level == 0 %}
+        	    <a class="nav-link dropdown-toggle {% if info.active_repertory %}active{% endif %}"
+                   href="{{ current_url }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ menu|capfirst }}
+                </a>
+                {% else %}
+                <a class="dropdown-item dropdown-toggle {% if info.active_repertory %}active{% endif %}"
+                   href="{{ current_url }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ menu|capfirst }}
+                </a>
+                {% endif %}
+        	{% else %}
+                {% if info.level == 0 %}
+                    <a class="nav-link {% if info.active_repertory %}active{% endif %}"
+                       href="{{ current_url }}">
+                        {{ menu|capfirst }}
+                    </a>
+                {% else %}
+                    <a class="dropdown-item {% if info.active_repertory %}active{% endif %}"
+                       href="{{ current_url }}">
+                        {{ menu|capfirst }}
+                    </a>
+                {% endif %}
+        	{% endif %}
+
+        {% for close in info.close %}
+            </li></ul>
+        {% endfor %}
+
+        {% endfor %}
+
+        {% endfor %}
+{% endspaceless %}

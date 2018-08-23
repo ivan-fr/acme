@@ -1,0 +1,20 @@
+{% spaceless %}
+
+{# info : open, close, level, repertory, next_level_up, level_target #}
+{% for menu, info in page_menu_ne_ne %}
+
+{% if info.open %}
+    <ul><li>
+{% else %}
+    </li><li>
+{% endif %}
+    <a {% if info.active_repertory %}class="active"{% endif %}
+       href="{% url 'page:menu-detail' info.repertory %}">{{ menu|capfirst }}</a>
+
+{% for close in info.close %}
+    </li></ul>
+{% endfor %}
+
+{% endfor %}
+
+{% endspaceless %}

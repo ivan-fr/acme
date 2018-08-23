@@ -1,0 +1,56 @@
+{% extends "page/menu_layout.html"%}
+{% block page_menu_layout %}
+
+{% now "Y" as current_year %}
+{% now "m" as current_mouth %}
+{% now "W" as current_week %}
+
+<h3>Publications {% block titre_publication %}{% endblock %}</h3>
+
+<ul class="nav justify-content-center">
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'page:publication:entry-year' page_menu_repertory current_year %}">Cette Année</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'page:publication:entry-month' page_menu_repertory current_year current_mouth %}">
+      Ce Moi-ci</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'page:publication:entry-week' page_menu_repertory current_year current_week %}">
+      Cette Semaine</a>
+  </li>
+</ul>
+
+{% if is_paginated %}
+<nav>
+  <ul class="pagination">
+
+    {% if page_obj.has_previous %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+        <span class="sr-only">Previous</span>
+      </a>
+    </li>
+    {% endif %}
+
+    <li class="page-item">
+      <a class="page-link" href="#">Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }}</span></a>
+    </li>
+
+    {% if page_obj.has_next %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+        <span class="sr-only">Next</span>
+      </a>
+    </li>
+    {% endif %}
+
+  </ul>
+</nav>
+{% endif %}
+
+{% block layout %}{% endblock %}
+
+{% endblock %}

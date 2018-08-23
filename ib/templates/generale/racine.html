@@ -1,0 +1,49 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <title>{% block head_title %}{{ website_data.name|capfirst }}{% endblock %}</title>
+
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="mutlimedia" name="description">
+    <meta content="ivan besevic" name="author">
+
+    <!-- CSS Global Compulsory -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+          crossorigin="anonymous">
+
+    {% block css %}{% endblock %}
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'ib/css/ib.css' %}">
+</head>
+
+<body>
+
+<div class="container">
+    <div class="row" id="header">
+    {% block header %}{% endblock %}
+    </div>
+    <div class="row" id="content">
+        {% block content %}{% endblock %}
+    </div>
+    <div class="row" id="footer">
+        {% block footer %}{% endblock %}
+    </div>
+</div>
+
+<!-- JS Compulsory -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+<!-- JS -->
+{% block js %}{% endblock %}
+
+</body>
+
+</html>

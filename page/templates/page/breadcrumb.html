@@ -1,0 +1,13 @@
+{% spaceless %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        {% for ancestor in page_menu_breadcrumb %}
+        <li class="breadcrumb-item {% if forloop.last %}active{% endif %}" >
+            <a {% if ancestor.slug == page_menu_reference_slug %}class="badge badge-primary"{% endif %}
+               href="{% url 'page:menu-detail' ancestor.repertory %}">
+                {{ ancestor.name|capfirst }}</a>
+        </li>
+        {% endfor %}
+    </ol>
+</nav>
+{% endspaceless %}
