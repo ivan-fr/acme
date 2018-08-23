@@ -20,10 +20,9 @@ class EntryForm(forms.ModelForm):
     menu = IndentModelChoiceField(queryset=None)
 
     def __init__(self, *args, **kwargs):
-
         self.request = kwargs.pop('request')
-        super(EntryForm, self).__init__(*args, **kwargs)
 
+        super(EntryForm, self).__init__(*args, **kwargs)
         self.fields['menu'].queryset = Menu.get_tree().filter(site=get_current_site(self.request))
 
     class Meta:
@@ -43,15 +42,10 @@ class FlatpageForm(FlatpageFormOld):
 
     def __init__(self, *args, **kwargs):
 
-        site = kwargs['initial'].pop('site')
         self.request = kwargs.pop('request')
         super(FlatpageForm, self).__init__(*args, **kwargs)
 
-        self.fields['menu'].queryset = Menu.get_tree().filter(site=site)
-
-        mutable = self.request.POST._mutable
-        self.request.POST._mutable = True
-        self.request.POST._mutable = mutable
+        self.fields['menu'].queryset = Menu.get_tree().filter(site=get_current_site(self.request))
 
     class Meta:
         model = FlatPage

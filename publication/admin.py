@@ -13,10 +13,6 @@ class AdminFormWithRequest(object):
 
         class _AdminFormWithRequest(admin_form):
             def __new__(cls, *args, **kwargs_bis):
-                try:
-                    kwargs_bis['initial'].update({'site': get_current_site(request)})
-                except KeyError:
-                    kwargs_bis['initial'] = {'site': get_current_site(request)}
                 kwargs_bis['request'] = request
                 return admin_form(*args, **kwargs_bis)
 
