@@ -64,7 +64,7 @@ class SitesMoveNodeForm(MoveNodeForm):
         position_type, reference_node_id = self._clean_cleaned_data()
 
         if self.instance.pk is None:
-            cl_data = {}
+            cl_data = {'site': self.site}
             for field in self.cleaned_data:
                 if not isinstance(self.cleaned_data[field], (list, QuerySet)):
                     cl_data[field] = self.cleaned_data[field]

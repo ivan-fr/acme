@@ -25,7 +25,7 @@ class SiteMPMoveHandler(MP_MoveHandler):
             if (self.target is None or self.target.is_root()) and not self.node.type == navigator:
                 raise InvalidMoveToDescendant(_("The parent cannot be the fully-root "
                                                 "if your menu is sub-navigator or neutral."))
-            elif not (self.target is None or self.target.is_root()) and self.node.type == navigator:
+            elif not(self.target is None or self.target.is_root()) and self.node.type == navigator:
                 raise InvalidMoveToDescendant(_("A navigator have to be a fully-root children."))
 
         return super(SiteMPMoveHandler, self).update_move_to_child_vars()
