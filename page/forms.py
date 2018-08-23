@@ -30,7 +30,7 @@ class SitesMoveNodeForm(MoveNodeForm):
             return neutral
         elif self.cleaned_data['vertical_position'] == neutral:
             raise ValidationError('This position cannot be neutral if this menu is a navigator.',
-                                  code='ivalid position')
+                                  code='invalid position')
         return self.cleaned_data['vertical_position']
 
     def clean(self):
