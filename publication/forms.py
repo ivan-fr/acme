@@ -48,8 +48,12 @@ class FlatpageForm(FlatpageFormOld):
         super(FlatpageForm, self).__init__(*args, **kwargs)
 
         self.fields['menu'].queryset = Menu.get_tree().filter(site=site)
-        self.data['url'] = None
-        self.data['sites'] = None
+
+        mutable = self.request.POST._mutable
+        self.request.POST._mutable = True
+        self.data['url'] = ''
+        self.data['sites'] = ''
+        self.request.POST._mutable = mutable
 
     class Meta:
         model = FlatPage
@@ -63,6 +67,7 @@ class FlatpageForm(FlatpageFormOld):
         slugs.append(menu.slug)
         url = '/' + '/'.join(slugs) + '/'
         self.cleaned_data['url'] = url
+        raise KeyError(self.data)
 
     def clean(self):
         menu = self.cleaned_data.get('menu')
