@@ -28,7 +28,7 @@ class EntryForm(forms.ModelForm):
 
     class Meta:
         model = Entry
-        fields = ('title', 'content', 'menu')
+        fields = ('menu', 'title', 'content')
 
     def save(self, commit=True):
         self.instance.slug = slugify(self.instance.title)
@@ -51,8 +51,6 @@ class FlatpageForm(FlatpageFormOld):
 
         mutable = self.request.POST._mutable
         self.request.POST._mutable = True
-        self.data['url'] = ''
-        self.data['sites'] = ''
         self.request.POST._mutable = mutable
 
     class Meta:
@@ -66,13 +64,13 @@ class FlatpageForm(FlatpageFormOld):
             slugs.append(parent.slug)
         slugs.append(menu.slug)
         url = '/' + '/'.join(slugs) + '/'
-        self.cleaned_data['url'] = url
-        raise KeyError(self.data)
+        return url
 
     def clean(self):
         menu = self.cleaned_data.get('menu')
         if menu.site not in self.cleaned_data.get('sites', ()):
             self.cleaned_data['sites'] = tuple(self.cleaned_data.get('sites', ())) + (menu.site,)
+        raise KeyError(self.data)
         return super(FlatpageForm, self).clean()
 
     def save(self, commit=True):

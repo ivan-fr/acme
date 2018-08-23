@@ -54,7 +54,7 @@ class SitesMoveNodeForm(MoveNodeForm):
             if (reference_node is None or reference_node.is_root()) and not self.cleaned_data['type'] == navigator:
                 raise ValidationError(_("The parent cannot be the fully-root "
                                         "if your menu is sub-navigator or neutral."))
-            elif not (reference_node is None or reference_node.is_root()) and self.cleaned_data['type'] == navigator:
+            elif not(reference_node is None or reference_node.is_root()) and self.cleaned_data['type'] == navigator:
                 raise ValidationError(_("A navigator have to be a fully-root children."))
 
         return super(SitesMoveNodeForm, self).clean()

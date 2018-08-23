@@ -32,14 +32,15 @@ class EntryAdmin(AdminFormWithRequest, admin.ModelAdmin):
 
 class FlatPageAdmin(AdminFormWithRequest, FlatPageAdminOld):
     form = FlatpageForm
+    list_display = ('url', 'title', 'get_sites')
+
     fieldsets = (
-        (None, {'fields': ('menu', 'title', 'content')}),
+        (None, {'fields': ('menu', 'url', 'title', 'content', 'sites')}),
         (_('Advanced options'), {
             'classes': ('collapse',),
             'fields': ('registration_required', 'template_name'),
         }),
     )
-    list_display = ('url', 'title', 'get_sites')
 
     def get_sites(self, obj):
         return "\n".join([p.name for p in obj.sites.all()])
