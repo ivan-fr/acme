@@ -29,8 +29,7 @@ class SitesMoveNodeForm(MoveNodeForm):
         if self.cleaned_data['type'] == neutral or self.cleaned_data['type'] == sub_navigator:
             return neutral
         elif self.cleaned_data['vertical_position'] == neutral:
-            raise ValidationError('This position cannot be neutral if this '
-                                  'menu is a navigator.',
+            raise ValidationError('This position cannot be neutral if this menu is a navigator.',
                                   code='ivalid position')
         return self.cleaned_data['vertical_position']
 

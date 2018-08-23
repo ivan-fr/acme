@@ -4,6 +4,7 @@ from django.contrib.flatpages.forms import FlatpageForm as FlatpageFormOld
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
+from django.contrib.sites.shortcuts import get_current_site
 
 from page.models import Menu
 from publication.models import Entry, FlatPage
@@ -20,11 +21,10 @@ class EntryForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
 
-        site = kwargs['initial'].pop('site')
         self.request = kwargs.pop('request')
         super(EntryForm, self).__init__(*args, **kwargs)
 
-        self.fields['menu'].queryset = Menu.get_tree().filter(site=site)
+        self.fields['menu'].queryset = Menu.get_tree().filter(site=get_current_site(self.request))
 
     class Meta:
         model = Entry
@@ -70,7 +70,6 @@ class FlatpageForm(FlatpageFormOld):
         menu = self.cleaned_data.get('menu')
         if menu.site not in self.cleaned_data.get('sites', ()):
             self.cleaned_data['sites'] = tuple(self.cleaned_data.get('sites', ())) + (menu.site,)
-        raise KeyError(self.data)
         return super(FlatpageForm, self).clean()
 
     def save(self, commit=True):

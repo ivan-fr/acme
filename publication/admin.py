@@ -2,7 +2,6 @@ from django.contrib import admin
 from django.contrib.flatpages.admin import FlatPageAdmin as FlatPageAdminOld
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.flatpages.models import FlatPage as OldFlatPage
-from django.contrib.sites.shortcuts import get_current_site
 
 from publication.models import FlatPage, Entry
 from publication.forms import FlatpageForm, EntryForm
