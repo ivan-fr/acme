@@ -35,7 +35,7 @@ class SiteFilter(admin.SimpleListFilter):
 
 @admin.register(Menu)
 class MenuAdmin(TreeAdmin):
-    form = movenodeform_factory(Menu, form=SitesMoveNodeForm)
+    form = movenodeform_factory(Menu, form=SitesMoveNodeForm, exclude=('site',))
     prepopulated_fields = {'slug': ('name',)}
     list_filter = (SiteFilter,)
     list_display = ('__str__', 'type', 'vertical_position')
