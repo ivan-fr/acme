@@ -30,7 +30,7 @@ class FlatPageAdmin(AdminFormWithRequest, FlatPageAdminOld):
     list_display = ('url', 'title', 'get_sites')
 
     fieldsets = (
-        (None, {'fields': ('menu', 'url', 'title', 'content', 'sites')}),
+        (None, {'fields': ('menu', 'title', 'content')}),
         (_('Advanced options'), {
             'classes': ('collapse',),
             'fields': ('registration_required', 'template_name'),

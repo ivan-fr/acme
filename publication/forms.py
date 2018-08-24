@@ -43,29 +43,26 @@ class FlatpageForm(FlatpageFormOld):
     def __init__(self, *args, **kwargs):
 
         self.request = kwargs.pop('request')
+        # kwargs['initial']['sites'] = get_current_site(self.request)
         super(FlatpageForm, self).__init__(*args, **kwargs)
-
         self.fields['menu'].queryset = Menu.get_tree().filter(site=get_current_site(self.request))
 
     class Meta:
         model = FlatPage
-        fields = ('url', 'title', 'content', 'menu', 'sites', 'enable_comments', 'template_name')
+        exclude = ('url',)
 
-    def clean_url(self):
+    def save(self, commit=True):
+        self._meta.fields.append('sites')
+        self.instance.user = self.request.user
+
         menu = self.cleaned_data['menu']
         slugs = []
         for parent in menu.get_ancestors():
             slugs.append(parent.slug)
         slugs.append(menu.slug)
         url = '/' + '/'.join(slugs) + '/'
-        return url
+        self.instance.url = url
 
-    def clean(self):
-        menu = self.cleaned_data.get('menu')
-        if menu.site not in self.cleaned_data.get('sites', ()):
-            self.cleaned_data['sites'] = tuple(self.cleaned_data.get('sites', ())) + (menu.site,)
-        return super(FlatpageForm, self).clean()
+        self.cleaned_data['sites'] = (menu.site,)
 
-    def save(self, commit=True):
-        self.instance.user = self.request.user
         return super(FlatpageForm, self).save(commit)
