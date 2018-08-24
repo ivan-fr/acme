@@ -43,7 +43,6 @@ class FlatpageForm(FlatpageFormOld):
     def __init__(self, *args, **kwargs):
 
         self.request = kwargs.pop('request')
-        # kwargs['initial']['sites'] = get_current_site(self.request)
         super(FlatpageForm, self).__init__(*args, **kwargs)
         self.fields['menu'].queryset = Menu.get_tree().filter(site=get_current_site(self.request))
 
