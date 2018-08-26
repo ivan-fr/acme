@@ -1,6 +1,6 @@
 from django.contrib.sites.shortcuts import get_current_site
 from django.views.generic.dates import ArchiveIndexView, MonthArchiveView, YearArchiveView, WeekArchiveView
-from django.views.generic.base import View
+from django.views.generic.detail import DetailView
 from django.http import Http404
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.views import redirect_to_login
@@ -49,7 +49,7 @@ class EntryWeekArchiveView(EntryMixinView, WeekArchiveView):
     week_format = "%W"
 
 
-class FlatPageView(View):
+class FlatPageView(DetailView):
     model = FlatPage
 
     def get(self, request, *args, **kwargs):

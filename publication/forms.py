@@ -49,7 +49,7 @@ class FlatpageForm(FlatpageFormOld):
 
     class Meta:
         model = FlatPage
-        exclude = ()
+        exclude = ('url',)
 
     def save(self, commit=True):
         self.instance.user = self.request.user
