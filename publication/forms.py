@@ -42,7 +42,6 @@ class FlatpageForm(FlatpageFormOld):
 
     def __init__(self, *args, **kwargs):
         self._meta.fields.append('sites')
-        self._meta.fields.append('url')
 
         self.request = kwargs.pop('request')
         super(FlatpageForm, self).__init__(*args, **kwargs)
@@ -50,14 +49,7 @@ class FlatpageForm(FlatpageFormOld):
 
     class Meta:
         model = FlatPage
-        exclude = ('url',)
-
-    def clean_url(self):
-        raise KeyError()
-        return super().clean_url()
-
-    def clean_sites(self):
-        return super().clean_sites()
+        exclude = ()
 
     def save(self, commit=True):
         self.instance.user = self.request.user
