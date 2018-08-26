@@ -11,7 +11,7 @@
     <OutputPath>.</OutputPath>
     <ProjectTypeGuids>{5F0BE9CA-D677-4A4D-8806-6076C0FAAD37};{349c5851-65df-11da-9384-00065b846f21};{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
     <LaunchProvider>Django launcher</LaunchProvider>
-    <InterpreterId />
+    <InterpreterId>MSBuild|env_acme|$(MSBuildProjectFullPath)</InterpreterId>
     <WebBrowserUrl>http://localhost</WebBrowserUrl>
     <DjangoSettingsModule>ib.settings</DjangoSettingsModule>
   </PropertyGroup>
@@ -71,6 +71,7 @@
     <Content Include="publication\templates\publication\entry_archive_year.html" />
     <Content Include="publication\templates\publication\entry_layout.html" />
     <Content Include="publication\templates\publication\patron.html" />
+    <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ib" />
@@ -98,6 +99,17 @@
     <Folder Include="publication\migrations" />
     <Folder Include="publication\templates\" />
     <Folder Include="publication\templates\publication" />
+  </ItemGroup>
+  <ItemGroup>
+    <Interpreter Include="..\env_acme\">
+      <Id>env_acme</Id>
+      <Version>3.6</Version>
+      <Description>env_acme (Python 3.6 (64-bit))</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+      <Architecture>X64</Architecture>
+    </Interpreter>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Django.targets" />
   <ProjectExtensions>
