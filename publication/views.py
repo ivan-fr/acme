@@ -2,6 +2,7 @@ from django.views.generic.dates import ArchiveIndexView, MonthArchiveView, YearA
 from django.views.generic.list import ListView
 from django.contrib.auth.views import redirect_to_login
 from django.http import Http404
+from django.utils.translation import gettext as _
 
 from publication.models import Entry, FlatPage
 from page.views import repertory_kwarg, MenuDetailView
